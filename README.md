@@ -53,13 +53,37 @@
 | 21  | [Finding a Pair with Sum K?](#finding-a-pair-with-sum-k) |
 | 22  | [Reverse an Array?](#reverse-an-array) |
 | 23  | [Find Two Elements with Difference Equal to S in a Sorted Array?](#find-two-elements-with-difference-equal-to-s-in-a-sorted-array) |
-| 24  | [Find Array Elements that are Neither Minimum nor Maximum?](#find-array-elements-that-are-neither-minimum-nor-maximum) |
-| 25  | [Find 2nd Maximum or Minimum Element?](#find-2nd-maximum-or-minimum-element) |
+| 24 | [Finding Minimum and Maximum in a Single Scan?](#finding-minimum-and-maximum-in-a-single-scan) |
+| 25  | [Find Array Elements that are Neither Minimum nor Maximum?](#find-array-elements-that-are-neither-minimum-nor-maximum) |
+| 26  | [Find 2nd Maximum or Minimum Element?](#find-2nd-maximum-or-minimum-element) |
+| 27  | [Find Elements in Range (0-100) with Frequency > 50](#find-elements-in-range-0-100-with-frequency--50) |
 
 
 ---
 
-## <a id="introduction-to-dsa"></a>Introduction to DSA
+### [Strings](#strings)
+
+| No. | Questions |
+| --- | ----------------------------------------------------------------- |
+| 1   | [What is character set?](#character-set) |
+| 2   | [What is the ASCII of strings?](#ascii) |
+| 3   | [What is string?](#strings) |
+| 4   | [Difference b/w character set and strings?](#difference-between-character-set-and-strings) |
+| 5   | [How to find Length of string?](#how-to-find-length-of-string) |
+| 6   | [How to change case of strings?](#how-to-change-case-of-strings) |
+| 7   | [How to count words, vowels and consonants in a string?] (#how-to-count-words-vowels-and-consonants-in-a-string) |
+| 8   | [How to validate a string?](#how-to-validate-a-string) |
+| 9   | [How to reverse a string?](#how-to-reverse-a-string) |
+| 10  | [How to compare strings and check palindrome?](#how-to-compare-strings-and-check-palindrome) |
+| 11  | [How to find duplicates in strings?](#how-to-find-duplicates-in-strings) |
+| 12  | [How to apply bitwise operations?](#how-to-apply-bitwise-operations) |
+| 13  | [How to check if strings are anagram?](#how-to-check-if-strings-are-anagram) |
+| 14  | [How to find permutation of strings?](#how-to-find-permutation-of-strings) |
+
+### [Recursion](#recursion)
+
+
+## Introduction to DSA
 
 ### What is Data Structure? 📂
 
@@ -319,7 +343,7 @@ int factorial(int n) {
 ---
 ---
 
-## <a id="array-representations"></a>Array Representations
+## Array Representations
 
 ### What is an Array?
 - Array is like a container that is use to store some kind of data or collection of elements.
@@ -564,7 +588,7 @@ int **A;
 ---
 ---
 
-## <a id="array-as-adt-abstract-data-type"></a>Array as ADT (Abstract Data Type)
+## Array as ADT (Abstract Data Type)
 
 ### What is Array ADT?
 
@@ -956,3 +980,1746 @@ int main() {
 **[⬆ Back to Top](#table-of-contents)**
 
 ---
+
+### How to Get, Set, Find Min - Max?
+
+#### 1. Get(index)
+Retrieves the element at the specified index.
+
+```cpp
+int get(int index) {
+    if (index >= 0 && index < 10) // Assuming array size is 10
+        return arr[index];
+    else
+        return -1; // Error value for invalid index
+}
+```
+
+#### 2. Set(index, value)
+Modifies the element at the specified index.
+
+```cpp
+void set(int index, int value) {
+    if (index >= 0 && index < 10) // Assuming array size is 10
+        arr[index] = value;
+}
+```
+
+#### 3. Min()
+Finds the minimum value in the array.
+
+**Time Complexity:** `O(n)`
+
+```cpp
+int getMin(){
+    int min;
+    for(int i = 0; i < 9; i++)
+        if(arr[i] > arr[i + 1])
+            min = arr[i];
+    return min;
+}
+```
+
+#### 4. Max()
+Finds the maximum value in the array.
+
+**Time Complexity:** `O(n)`
+
+```cpp
+int getMax(){
+    int max = arr[0];
+    for(int i = 1; i < 9; i++)
+        if(arr[i] > max)
+            max = arr[i];
+    return max;
+}
+```
+
+#### 5. Sum() + Average()
+Calculates the sum and average of array elements.
+
+**Time Complexity:** `O(n)`
+
+```cpp
+// Iterative
+int getAverage(){
+    int sum = 0;
+    for(int i = 0; i < 10; i++)
+        sum += arr[i];
+    return (sum / 10);
+}
+```
+```cpp
+// Recursive
+int getAverage(int arr[], int num){
+    if(num < 0){
+        return 0;
+    } else {
+        return getAverage(arr, num - 1) + arr[num];
+    }
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### How to Reverse and Shift an Array?
+
+There are two common methods to reverse an array:
+
+#### 1️. Auxiliary Array Method
+- Create a temporary array.
+- Copy elements in reverse order.
+- Copy back to the original array.
+- **Time Complexity:** `O(2n)`
+
+```cpp
+class Arr {
+  public:
+    int arr1[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+    void reverse() {
+        int arr2[10];
+
+        for(int i = 9, j = 0; i >= 0; i--, j++)
+            arr2[j] = arr1[i];
+
+        for(int i = 0; i < 10; i++)
+            arr1[i] = arr2[i];
+
+        for(int i = 0; i < 10; i++)
+            cout << arr1[i] << " ";
+    }
+};
+
+int main() {
+    Arr arr;
+    arr.reverse();
+}
+```
+
+#### 2. In-Place Swap Method
+Swap elements from the start and end of the array.
+
+- **Time Complexity:** `O(n)`
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Arr {
+  public:
+    int arr1[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+    void reverse() {
+        for(int i = 0, j = 9; i < j; i++, j--) {
+            int temp = arr1[j];
+            arr1[j] = arr1[i];
+            arr1[i] = temp;
+        }
+
+        for(int i = 0; i < 10; i++)
+            cout << arr1[i] << " ";
+    }
+};
+
+int main() {
+    Arr arr;
+    arr.reverse();
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### Left Shift / Rotation?
+
+Move elements one position **left**.
+
+- The **first element** moves to the **last position**.
+- Used in **image sliders** and **circular queues**.
+
+- **Time Complexity:** `O(n)`
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Arr {
+  public:
+    int A[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+    void rotate() {
+        int temp = A[0];
+        for (int i = 0; i < 9; i++) {
+            A[i] = A[i + 1];
+        }
+        A[9] = temp;
+
+        for (int i = 0; i < 10; i++)
+            cout << A[i] << " ";
+    }
+};
+
+int main() {
+    Arr A;
+    A.rotate();
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### Right Shift / Rotation?
+
+Move elements one position **right**.
+
+- The **last element** moves to the **first position**.
+
+- **Time Complexity:** `O(n)`
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Arr {
+  public:
+    int A[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+    void rotate() {
+        int temp = A[9];
+        for (int i = 9; i > 0; i--) {
+            A[i] = A[i - 1];
+        }
+        A[0] = temp;
+
+        for (int i = 0; i < 10; i++)
+            cout << A[i] << " ";
+    }
+};
+
+int main() {
+    Arr A;
+    A.rotate();
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### Insert into Sorted Array?
+
+This function inserts a given value into a **sorted array** while maintaining its sorted order.
+
+- **Time Complexity:** `O(n)`
+
+```cpp
+void insertIntoSorted(int value) {
+    int i = length - 1;
+
+    while (i >= 0 && A[i] > value) {
+        A[i + 1] = A[i];
+        i--;
+    }
+
+    A[i + 1] = value;
+    length++;
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### Check if an Array is Sorted?
+
+This function checks whether a given array is sorted in **ascending order**.
+
+- **Time Complexity:** `O(n)`
+
+```cpp
+bool isSorted() {
+    for (int i = 0; i < 9; i++) {
+        if (A[i] > A[i + 1]) {
+            return false;
+        }
+    }
+    return true;
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### Arranging Negative Numbers on Left Side?
+
+This function rearranges the array so that all **negative numbers** are placed on the **left side**, while the **non-negative numbers** remain on the right.
+
+- **Time Complexity:** `O(n)`
+
+```cpp
+void adjust() {
+    int i = 0, j = 9;
+    while (i < j) {
+        while (A[i] < 0) { i++; }
+        while (A[j] >= 0) { j--; }
+        if (i < j) {
+            int temp = A[i];
+            A[i] = A[j];
+            A[j] = temp;
+        }
+    }
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### Merge Arrays?
+
+#### Merging Two Sorted Arrays
+- Combines two **sorted arrays** into one sorted array.
+- Uses a **two-pointer technique** to efficiently merge the arrays.
+
+- **Time Complexity:** `O(n + m)`, where `n` and `m` are the lengths of the arrays.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Array {
+public:
+    int A[5] = {1, 4, 7, 9, 10};
+    int B[5] = {2, 3, 5, 6, 8};
+    int C[10]; // Merged array
+    int length = 10;
+
+    void merge() {
+        int i = 0, j = 0, k = 0;
+
+        while (i < 5 && j < 5) {
+            if (A[i] <= B[j]) {
+                C[k++] = A[i++];
+            } else {
+                C[k++] = B[j++];
+            }
+        }
+
+        while (i < 5) {
+            C[k++] = A[i++];
+        }
+
+        while (j < 5) {
+            C[k++] = B[j++];
+        }
+    }
+
+    void print() {
+        for (int i = 0; i < length; i++)
+            cout << C[i] << " ";
+        cout << endl;
+    }
+};
+
+int main() {
+    Array arr;
+    arr.merge();
+    arr.print();
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### Set Operations (Union, Intersection, Difference)?
+
+#### 1. Union of Two Arrays
+
+##### Unsorted Arrays
+
+- Copy all elements of the first array (A) into the result array (C).
+- Iterate through the second array (B).
+- If an element from B is not already present in C, add it.
+
+- **Time Complexity:** O(m * n) (for checking duplicates)
+
+```cpp
+#include<iostream>
+using namespace std;
+
+class Array{
+    public:
+      int A[5] = {2, 4, 1, 5, 10};
+      int B[5] = {3, 4, 1, 2, 9};
+      int C[10];
+      int length = 0;
+
+      void UNION() {
+          for(int i = 0; i < 5; i++)
+              C[length++] = A[i];
+          for(int i = 0; i < 5; i++){
+              bool found = false;
+              for(int j = 0; j < length; j++){
+                  if(B[i] == C[j]){
+                      found = true;
+                      break;
+                  }
+              }
+              if(!found)
+                  C[length++] = B[i];
+          }
+      }
+
+      void print(){
+          for(int i = 0; i < length; i++)
+              cout << C[i] << " ";
+      }
+};
+
+int main()
+{
+    Array A;
+    A.UNION();
+    A.print();
+}
+```
+
+##### Sorted Arrays
+
+- Use two pointers i and j to traverse both arrays.
+- Compare elements and add the smaller one to C.
+- If they are equal, add one and move both pointers forward.
+- Add remaining elements of either array.
+
+- **Time Complexity:** O(m + n) (since both arrays are traversed once)
+
+```cpp
+#include<iostream>
+using namespace std;
+class Array{
+  public:
+    int A[5] = {1, 4, 7, 8, 10};
+    int B[5] = {2, 4, 5, 7, 8};
+    int C[10];
+    int k = 0;
+
+      void UNION() {
+         int i = 0, j = 0;
+
+         while(i < 5 && j < 5){
+             if(A[i] < B[j]){
+                 C[k++] = A[i++];
+             }else if(A[i] > B[j]){
+                 C[k++] = B[j++];
+             }else{
+                 C[k++] = A[i];
+                 i++; j++;
+             }
+         }
+
+         while(i < 5)
+             C[k++] = A[i++];
+         while(j < 5)
+             C[k++] = B[j++];
+      }
+
+      void print(){
+          for(int i = 0; i < k; i++)
+              cout << C[i] << " ";
+      }
+};
+
+int main()
+{
+    Array A;
+    A.UNION();
+    A.print();
+}
+```
+
+#### 2. Intersection of Two Arrays
+
+##### Unsorted Arrays
+
+- Iterate through A and B, checking for common elements.
+- Store them in C if found.
+
+- **Time Complexity:** O(m * n) (brute force comparison)
+
+```cpp
+void INTERSECTION(){
+    for(int i = 0; i < 5; i++){
+        for(int j = 0; j < 5; j++){
+            if(A[i] == B[j]){
+                C[k++] = A[i];
+            }
+        }
+    }
+}
+```
+
+##### Sorted Arrays
+
+- Use two pointers i and j.
+- If A[i] == B[j], store in C.
+- Otherwise, increment the smaller pointer.
+
+- **Time Complexity:** O(m + n)
+
+```cpp
+void INTERSECTION(){
+    int i = 0, j = 0;
+    while(i < 5 && j < 5){
+        if(A[i] < B[j]){
+            i++;
+        }else if(A[i] > B[j]){
+            j++;
+        }else{
+            C[k++] = A[i++];
+            j++;
+        }
+    }
+}
+```
+
+#### 3. Difference of Two Arrays
+
+##### Unsorted Arrays
+
+- Iterate through A, checking if each element exists in B.
+- If not, add to C.
+
+**Time Complexity:** O(m * n) (brute force search)
+
+```cpp
+void DIFFERENCE(){
+    for(int i = 0; i < 5; i++){
+        bool isFound = false;
+        for(int j = 0; j < 5; j++){
+            if(A[i] == B[j]){
+                isFound = true;
+                break;
+            }
+        }
+        if(!isFound){
+            C[k++] = A[i];
+        }
+    }
+}
+```
+
+##### Sorted Arrays
+
+- Use two pointers i and j.
+- If A[i] is smaller, add it to C.
+- If equal, skip both.
+- Append remaining elements of A.
+
+- **Time Complexity:** O(m + n)
+
+```cpp
+void DIFFERENCE(){
+    int i = 0, j = 0;
+
+    while(i < 5 && j < 5){
+        if(A[i] < B[j]){
+            C[k++] = A[i++];
+        }else if(A[i] > B[j]){
+            j++;
+        }else{
+            i++;
+            j++;
+        }
+    }
+
+    while(i < 5)
+        C[k++] = A[i++];
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### Find Missing Element (Single Missing, Multiple Missing)?
+
+#### 1. Single Missing Element from Natural Numbers (Sorted Array)
+
+- **From 1 to n (First n Natural Numbers):**
+
+```cpp
+void Array::missingElement(){
+    int sum = 10 * (10 + 1) / 2;
+    int s;
+    for(int i = 0; i < 10; i++)
+        s += A[i];
+
+    cout << "Missing element is: " << (sum - s);
+};
+```
+
+- **From k to n:**
+
+```cpp
+void Array::missingElement(){
+    int diff = A[0] - 0;
+
+    for(int i = 0; i < 10; i++){
+        if(A[i] - i != diff){
+            cout << "Missing element is: " << (diff + i) << endl;
+            break;
+        }
+    }
+};
+// Add index + difference
+```
+
+#### 2. Multiple Missing Elements from Unsorted Array
+
+- This procedure uses a hash table / bit set, which operates in constant time.
+- When searching for missing elements, a hash table is a preferred choice if feasible.
+- When using this technique, the required space should be equal to the maximum value of the array. If space is constrained, this approach may not be suitable.
+
+```cpp
+void Array::missingElements(){
+    int B[14]; // Maximum element of array
+    for(int i = 0; i < 14; i++)
+        B[A[i]] = 1;
+    for(int i = 0; i < 14; i++)
+        if(B[i] == 0)
+           cout << "Missing element: " << i << endl;
+}
+```
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### Find Duplicate Elements?
+
+#### 1. Finding Duplicates in a Sorted Array
+- If an element appears **more than once**, it should be printed **only once**.
+
+```cpp
+void duplicateElements(){
+    int lastDuplicate = 0;
+    for(int i = 0; i < 10 - 1; i++){
+        if(A[i] == A[i + 1] && lastDuplicate != A[i]){
+            cout << "Duplicate element: " << A[i] << endl;
+            lastDuplicate = A[i];
+        }
+    }
+}
+```
+
+#### 2. Counting Duplicates in a Sorted Array
+- Counts how many times each element appears in a sorted array.
+
+```cpp
+void countDuplicates(){
+    for(int i = 0; i < 10 - 1; i++){
+        if(A[i] == A[i + 1]){
+            int j = i + 1;
+            while(A[j] == A[i]) j++;
+            cout << A[i] << " appears " << j - i << " times." << endl;
+            i = j - 1;
+        }
+    }
+}
+```
+
+#### 3. Counting Duplicates Using a Hash Table (Sorted Array)
+
+```cpp
+void countDuplicates(){
+    for(int i = 0; i < 10 - 1; i++){
+        if(A[i] == A[i + 1]){
+            int j = i + 1;
+            while(A[j] == A[i]) j++;
+            cout << A[i] << " " << j - i << endl;
+            i = j - 1;
+        }
+    }
+}
+```
+
+#### 4. Finding Duplicates in an Unsorted Array
+- Uses brute force method, setting duplicate values to -1.
+
+```cpp
+void findDuplicateUnsort(){
+    for(int i = 0; i < 10 - 1; i++){
+        int count = 1;
+        if(A[i] != -1){
+            for(int j = i + 1; j < 10; j++){
+                if(A[i] == A[j]){
+                    count++;
+                    A[j] = -1;
+                }
+            }
+            if(count > 1){
+                cout << "Duplicate element " << A[i] << " appears " << count << " times." << endl;
+            }
+        }
+    }
+}
+```
+
+#### 5. Finding Duplicates Using a Hash Table (Unsorted Array)
+
+```cpp
+void findDuplicateUnsort(){
+    int B[10] = {0};
+    for(int i = 0; i < 10; i++)
+        B[A[i]]++;
+    for(int i = 0; i < 10; i++)
+        if(B[i] > 1)
+            cout << "Duplicate element " << i << " appears " << B[i] << " times." << endl;
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### Finding a Pair with Sum K?
+
+#### 1. Finding a Pair of Elements with Sum K (Sorted Array)
+This approach uses the **two-pointer technique** to find a pair whose sum equals `k`.
+- If the sum is equal to `k`, the pair is printed.
+- If the sum is less than `k`, increment `i` (move right).
+- If the sum is greater than `k`, decrement `j` (move left).
+
+- **Time Complexity:** `O(n)`
+
+```cpp
+void Array::findPair(int k){
+    int i = 0, j = 10 - 1;
+    while (i < j) {
+        if(A[i] + A[j] == k){
+            cout << "Pair found: " << A[i] << " and " << A[j] << endl;
+            i++; j--;
+        } else if(A[i] + A[j] < k){
+            i++;
+        } else {
+            j--;
+        }
+    }
+}
+```
+
+#### 2. Finding a Pair of Elements with Sum K (Unsorted Array)
+This approach **checks all possible pairs** in a nested loop to find the sum `k`.
+- It iterates through the array, comparing each element with every other element.
+- If a pair with sum `k` is found, it is printed.
+
+- **Time Complexity:** `O(n²)`
+
+```cpp
+void Array::findPair(int k){
+    for(int i = 0; i < 10 - 1; i++){
+        for(int j = i + 1; j < 10; j++){
+            if(A[i] + A[j] == k){
+                cout << "Pair found: " << A[i] << " and " << A[j] << endl;
+            }
+        }
+    }
+}
+```
+
+#### 3. Finding a Pair of Elements with Sum K (Using Hash Table)
+This approach **uses an auxiliary array (hash table)** to store values and find the sum efficiently.
+
+#### How It Works:
+- It iterates through the array, checking if `k - A[i]` exists in the hash table.
+- If found, it prints the pair.
+- Otherwise, it marks `A[i]` as visited in the hash table.
+
+- **Time Complexity:** `O(n)`
+
+```cpp
+void Array::findPair(int k){
+    int B[10] = {0};
+
+    for(int i = 0; i < 10; i++){
+        if(B[k - A[i]] != 0)
+            cout << "Pair found: " << A[i] << " and " << k - A[i] << endl;
+        B[A[i]]++;
+    }
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### Reverse an Array?
+
+Reversing an array can be done in different segments:
+
+#### 1. Reverse `[1, k]`
+This function reverses the elements from index `1` to `k` (0-based indexing).
+
+```cpp
+void reverseOneToK(int k){
+    for(int i = 0, j = k - 1; i < k / 2; i++, j--){
+        int c = A[i];
+        A[i] = A[j];
+        A[j] = c;
+    }
+}
+```
+
+#### 2. Reverse `[k + 1, n]`
+This function reverses elements from index `k + 1` to `n`, which means reversing the latter part of the array.
+
+```cpp
+void reverseFromKPlusOne(int k) {
+  for (int i = k + 1, j = size - 1; i < j; i++, j--) {
+      int temp = A[i];
+      A[i] = A[j];
+      A[j] = temp;
+  }
+}
+```
+
+#### 3. Reverse `[1, n]`
+This function reverses the entire array.
+
+```cpp
+void reverseOneToN(){
+    for(int i = 0, j = 10 - 1; i < j; i++, j--){
+        int c = A[i];
+        A[i] = A[j];
+        A[j] = c;
+    }
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### Find Two Elements with Difference Equal to S in a Sorted Array?
+
+```Array in increasing order, we want to find two elements having difference equal to (s)```
+
+- Works for sorted arrays.
+- Uses two pointers (`i` and `j`).
+- If difference equals `s`, prints the pair.
+- If difference is less than `s`, moves `j` forward.
+- If difference is greater than `s`, moves `i` forward.
+
+#### Time Complexity: `O(n)`
+
+```cpp
+void findDifference(int s) {
+    int i = 0, j = 1;
+    while (j < 10) {
+        if ((A[j] - A[i]) == s) {
+            cout << "Difference found with: " << A[j] << " - " << A[i] << endl;
+            i++;
+            j++;
+        } else if ((A[j] - A[i]) < s) {
+            j++;
+        } else {
+            i++;
+        }
+    }
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### Finding Minimum and Maximum in a Single Scan?
+
+```cpp
+void minAndMax(){
+    int min = A[0], max = A[0];
+
+    for(int i = 1; i < 10; i++){
+        if(A[i] < min)
+            min = A[i];
+        else if(A[i] > max)
+            max = A[i];
+    }
+
+    cout << "Minimum: " << min << ", Maximum: " << max << endl;
+}
+```
+
+- **Best Case:** When array is in descending order (1 comparison per iteration).
+- **Worst Case:** When min and max are at opposite ends.
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### Find Array Elements that are Neither Minimum nor Maximum?
+
+#### 1. Simple Conditional Check
+```cpp
+void findNum() {
+   if(A[0] > A[1] && A[0] < A[2])
+       cout << "Number: " << A[0];
+   else if(A[1] > A[0] && A[1] < A[2])
+       cout << "Number: " << A[1];
+   else
+       cout << "Number: " << A[2];
+}
+```
+
+#### 2. Generalized Approach for Larger Arrays
+
+```cpp
+void findMiddleElements(int A[], int n) {
+    int minVal = INT_MAX, maxVal = INT_MIN;
+
+    // Finding minimum and maximum values
+    for(int i = 0; i < n; i++) {
+        if(A[i] < minVal) minVal = A[i];
+        if(A[i] > maxVal) maxVal = A[i];
+    }
+
+    cout << "Elements neither minimum nor maximum: ";
+    for(int i = 0; i < n; i++) {
+        if(A[i] != minVal && A[i] != maxVal)
+            cout << A[i] << " ";
+    }
+    cout << endl;
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### Find 2nd Maximum or Minimum Element?
+
+```cpp
+// Maximum
+void secondMaximum(){
+    int first = INT_MIN, second = INT_MIN;
+    for(int i = 0; i < 10; i++){
+        if(A[i] > first){
+            second = first;
+            first = A[i];
+        } else if(A[i] > second && A[i] != first){
+            second = A[i];
+        }
+    }
+    cout << "Second maximum value: " << second << endl;
+}```
+
+```cpp
+// Minimum
+void secondMinimum(){
+    int first = INT_MAX, second = INT_MAX;
+    for(int i = 0; i < 10; i++){
+        if(A[i] < first){
+            second = first;
+            first = A[i];
+        } else if(A[i] < second && A[i] != first){
+            second = A[i];
+        }
+    }
+    cout << "Second minimum value: " << second << endl;
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### Find Elements in Range (0-100) with Frequency > 50
+
+- Given an array of elements within the range **0 to 100**, find the **frequency of elements greater than 50** and display the count of each occurrence.
+
+#### Approach
+- We initialize an array `temp[50]` to store the frequency of numbers **greater than 50** (i.e., numbers between **51 to 100**).
+- We read `n` elements from user input.
+- If the number is **greater than 50**, we increment its respective index in `temp[]`.
+- Finally, we display the numbers and their corresponding frequency.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Array {
+public:
+    int temp[50] = {0}; // Frequency array for numbers 51-100
+
+    void elementsCounting() {
+        for (int i = 0; i < 10; i++) { // Modify 10 based on input size
+            int element;
+            cin >> element;
+
+            if (element > 50 && element <= 100)
+                temp[element - 51]++; // Map 51-100 to 0-49 index
+        }
+    }
+
+    void display() {
+        for (int i = 0; i < 50; i++) {
+            if (temp[i] != 0)
+                cout << (i + 51) << " appears " << temp[i] << " times" << endl;
+        }
+    }
+};
+
+int main() {
+    Array A;
+    A.elementsCounting();
+    A.display();
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+---
+---
+
+## Strings
+
+### Character Set
+
+- A character set is the set of characters that are supported by a programming language.
+- Computers do not directly understand characters, so numeric codes are assigned to characters.
+- These numeric codes are standardized globally, known as ASCII and Unicode.
+- Standardized by `American National Standards Institute (ANSI)` and `ISO`.
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### ASCII
+
+- Total ASCII codes: `128` (0-127)
+- `A-Z` ASCII codes: `65-90`
+- `a-z` ASCII codes: `97-122`
+- `0-9` ASCII codes: `48-57`
+- Special characters: `Enter = 10`, `Space = 13`, `Esc = 27`
+- Each symbol/character takes `7 bits` or `1 byte`
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### Unicode
+
+- Supports all languages worldwide.
+- Uses `16 bits` or `2 bytes`.
+- Represented in hexadecimal format.
+
+### Character array
+- `char A[5];`
+- `char A[5] = {65, 66, 67, 68, 69};`
+- `char A[5] = {'A', 'B', 'C', 'D', 'E'}`
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### Difference Between Character Set and Strings
+- A **character set** is a collection of characters assigned with unique numeric codes.
+- A **string** is a sequence of characters that ends with a null character (`\0`).
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    char charSet[] = {65, 66, 67, 68, 69}; // Character Set (ASCII values for A-E)
+    char str[] = "ABCDE"; // String with \0 at the end
+
+    cout << "Character Set: ";
+    for (char c : charSet) {
+        cout << c << " ";
+    }
+    cout << "\nString: " << str << endl;
+    return 0;
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### Strings
+- A string is a sequence of characters terminated by a special character `\0` (null character).
+- The `\0` character acts as a string delimiter.
+
+  ```cpp
+  char A[6] = "Hello"; // Automatically adds '\0' at the end
+  ```
+- Without `\0`, a character array remains just an array of characters, not a string.
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### How to find Length of string?
+
+- We cannot calculate the size of a string using `array - 1` because the string may have fewer elements than the total allocated size.
+- In C and C++, when you initialize a character array with a string literal like "ABDUL AHAD", the compiler automatically appends a null terminator ('\0') at the end of the string.
+  - So, when you declare `char A[] = "ABDUL AHAD";`, the memory layout looks like this:
+    - | 'A' | 'B' | 'D' | 'U' | 'L' | 'A' | ' ' | 'H' | 'A' | 'D' | '\0' |
+
+```cpp
+char A[] = "ABDUL AHAD";
+cout << A << endl;
+char B[5] = {'A', 'B', 'C', 'D', '\0'};
+cout << B << endl;
+char C[] = {'A', 'B', 'C', 'D', '\0'};
+cout << C << endl;
+int length = 0;
+for(int i = 0; A[i] != '\0'; i++)
+    length++;
+cout << "Length of A: " << length;
+```
+
+#### Another approach using a function:
+
+```cpp
+int length(char str[]) {
+    int i = 0;
+    while (str[i] != '\0') {
+        i++;
+    }
+    return i;
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### How to change case of strings?
+
+Changing the case of a string means converting **uppercase letters to lowercase** and **lowercase letters to uppercase**.
+- In **ASCII**, uppercase letters ('A' to 'Z') range from **65 to 90**.
+- Lowercase letters ('a' to 'z') range from **97 to 122**.
+- The difference between uppercase and lowercase letters is **32** (`'A' + 32 = 'a'` and `'a' - 32 = 'A'`).
+
+#### Convert Uppercase to Lowercase
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    char A[] = "ABDUL AHAD";
+
+    // Convert to lowercase
+    for (int i = 0; A[i] != '\0'; i++) {
+        A[i] = char(A[i] + 32);
+    }
+
+    cout << A << endl; // Output: abdul ahad
+
+    // Convert the first letter back to uppercase
+    A[0] = char(A[0] - 32);
+
+    cout << A; // Output: Abdul ahad
+}
+```
+
+#### Convert Lowercase to Uppercase and Vice Versa
+
+- This program swaps the case of each character.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    char A[] = "ABDUL AHAD";
+
+    // Toggle case (uppercase → lowercase, lowercase → uppercase)
+    for (int i = 0; A[i] != '\0'; i++) {
+        if (A[i] >= 97 && A[i] <= 122) // If lowercase
+            A[i] -= 32;
+        else if (A[i] >= 65 && A[i] <= 90) // If uppercase
+            A[i] += 32;
+    }
+
+    char B[] = "cHiLli";
+
+    for (int i = 0; B[i] != '\0'; i++) {
+        if (B[i] >= 'a' && B[i] <= 'z') // If lowercase
+            B[i] -= 32;
+        else if (B[i] >= 'A' && B[i] <= 'Z') // If uppercase
+            B[i] += 32;
+    }
+
+    cout << A << " " << B;
+    // Output: abdul ahad ChIlLI
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### How to count words, vowels and consonants in a string?
+
+This program calculates:
+1. **Word Count**: A word is identified when a space is followed by a non-space character.
+2. **Vowel Count**: Characters `a, e, i, o, u` (both uppercase and lowercase).
+3. **Consonant Count**: Any letter that is not a vowel.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    char A[] = "We are all Palestinian";
+    int wordCount = 0, vowelCount = 0, consonantCount = 0;
+
+    for (int i = 0; A[i] != '\0'; i++) {
+        // Counting words (checking spaces between words)
+        if (A[i] == ' ' && A[i - 1] != ' ')
+            wordCount++;
+
+        // Counting vowels
+        if (A[i] == 'a' || A[i] == 'e' || A[i] == 'i' || A[i] == 'o' || A[i] == 'u' ||
+            A[i] == 'A' || A[i] == 'E' || A[i] == 'I' || A[i] == 'O' || A[i] == 'U') {
+            vowelCount++;
+        }
+        // Counting consonants (any alphabet that is not a vowel)
+        else if ((A[i] >= 65 && A[i] <= 90) || (A[i] >= 97 && A[i] <= 122)) {
+            consonantCount++;
+        }
+    }
+
+    cout << "Total words: " << wordCount + 1 << " ,Vowels: " << vowelCount << " ,Consonants: " << consonantCount;
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### How to validate a string?
+
+This program checks whether a given string is **valid** by ensuring it contains only:
+1. **Digits (0-9)**
+2. **Uppercase letters (A-Z)**
+3. **Lowercase letters (a-z)**
+
+- If the string contains any special characters (e.g., `@, *, #, !`), it is considered **invalid**.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int validate(char A[]) {
+    for (int i = 0; A[i] != '\0'; i++) {
+        // Checking if the character is NOT a digit, uppercase letter, or lowercase letter
+        if (!(A[i] >= 48 && A[i] <= 57) && !(A[i] >= 65 && A[i] <= 90) && !(A[i] >= 97 && A[i] <= 122))
+            return 0; // Invalid string
+    }
+    return 1; // Valid string
+}
+
+int main() {
+    char A[] = "ABDULAHAD786*ali";  // String to validate
+    if (validate(A))
+        cout << "Valid string!";
+    else
+        cout << "Not a valid string!";
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### How to Reverse a String?
+
+Reversing a string means rearranging its characters in the opposite order. We can achieve this using:
+1. **Extra Array Method**: Storing the reversed string in a separate array.
+2. **Swapping Method**: Swapping characters in the same array.
+
+#### **Method 1: Using an Extra Array**
+- First, find the **length** of the string.
+- Then, store characters in reverse order in a new array.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    char A[] = "CHILLI";
+    int i;
+
+    // Finding string length
+    for(i = 0; A[i] != '\0'; i++) {};
+
+    char B[i];  // Creating new array to store reversed string
+    i = i - 1;  // Adjusting index to last character
+
+    // Storing characters in reverse order
+    for(int j = 0; i >= 0; i--, j++)
+        B[j] = A[i];
+
+    cout << "Reversed string: " << B;
+}
+```
+
+#### **Method 2: Swapping in the Same Array**
+- Using two pointers: One at the start, another at the end.
+- Swap characters until pointers meet in the middle.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    char A[] = "CHILLI";
+    int i, j;
+
+    // Finding string length
+    for(j = 0; A[j] != '\0'; j++) {};
+    j--;  // Move to last character
+
+    // Swapping characters
+    for(i = 0; i < j; i++, j--) {
+        char c = A[i];
+        A[i] = A[j];
+        A[j] = c;
+    }
+
+    cout << "Reversed string: " << A;
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### How to compare strings and check palindrome?
+
+#### **1. Comparing Strings**
+String comparison determines which string is lexicographically larger, smaller, or equal.
+
+- Iterate through both strings **character by character**.
+- Stop at the first mismatched character.
+- Compare their ASCII values:
+  - If `A[i] > B[j]`, `A` is larger.
+  - If `A[i] < B[j]`, `A` is smaller.
+  - If all characters match, the strings are equal.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    char A[] = "APPLE";
+    char B[] = "BANANA";
+    int i, j;
+
+    // Compare characters one by one
+    for(i = 0, j = 0; A[i] != '\0' && B[j] != '\0'; i++, j++)
+        if(A[i] != B[j])
+            break;
+
+    if(A[i] > B[j])
+        cout << "A is larger";
+    else if(A[i] < B[j])
+        cout << "A is smaller";
+    else
+        cout << "Both strings are equal!";
+}
+```
+
+#### **Checking if a String is a Palindrome**
+
+A **palindrome** is a string that reads the same **forward and backward**.
+For example:
+- **"MADAM"**, **"RACECAR"** are palindromes.
+- **"HELLO"**, **"WORLD"** are not palindromes.
+
+1. **Reverse** the string and store it in another array.
+2. **Compare** the original and reversed strings **character by character**.
+3. If all characters match, **it's a palindrome**.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    char A[] = "MADAM";
+    int i;
+
+    // Step 1: Find string length
+    for(i = 0; A[i] != '\0'; i++) {}
+
+    char B[i + 1];  // Extra space for null terminator
+    B[i] = '\0';  // End reversed string with null character
+
+    // Step 2: Store reversed string
+    for(int j = 0; i > 0; i--, j++) {
+        B[j] = A[i - 1];
+    }
+
+    // Step 3: Compare original and reversed strings
+    for(i = 0; A[i] != '\0'; i++) {
+        if(A[i] != B[i]) {
+            cout << "Not a palindrome\n";
+            return 0;
+        }
+    }
+
+    cout << "Palindrome\n";
+}
+```
+
+#### **3. Alternative: Two-Pointer Palindrome Check**
+
+- A more efficient approach is to use two pointers, one at the start and one at the end, and compare characters.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    char A[] = "MADAM";
+    int i, j;
+
+    // Find string length
+    for(j = 0; A[j] != '\0'; j++) {};
+    j--;  // Adjust for index
+
+    // Compare first and last characters
+    for(i = 0; i < j; i++, j--) {
+        if(A[i] != A[j]) {
+            cout << "Not a palindrome\n";
+            return 0;
+        }
+    }
+
+    cout << "Palindrome\n";
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### How to find duplicates in strings?
+
+  Finding duplicate characters in a string helps in **text processing, compression, and data validation**.
+
+#### **Methods to Find Duplicates**
+1. **Using Nested Loops** (Brute Force) → **O(n²) Time Complexity**
+2. **Using Hash Tables** (Efficient for lowercase letters) → **O(n) Time Complexity**
+
+
+#### **1. Brute Force Approach (Nested Loops)**
+
+- Compare each character with all previous characters.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    char A[] = "Finding";
+
+    for(int i = 0; A[i] != '\0'; i++) {
+        for(int j = 0; j < i; j++) {
+            if(A[i] == A[j]) {
+                cout << "Duplicate element: " << A[i] << endl;
+                break; // Stop checking once a duplicate is found
+            }
+        }
+    }
+}
+```
+
+#### **2. Efficient Approach Using Hash Tables**
+
+1. Create an **array of size 26** (for lowercase letters).
+2. Traverse the string and count occurrences of each character.
+3. Print characters that appear **more than once**.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    char A[] = "finding"; // Lowercase string
+    int B[26] = {0};  // Hash table initialized with 0
+
+    // Count character occurrences
+    for(int i = 0; A[i] != '\0'; i++) {
+        B[A[i] - 'a']++;
+    }
+
+    // Display duplicates
+    for(int i = 0; i < 26; i++) {
+        if(B[i] > 1) {
+            cout << char(i + 'a') << " appears " << B[i] << " times." << endl;
+        }
+    }
+}
+```
+
+#### **3. Optimized Approach: Using Bit Manipulation**
+
+- **Faster** than other methods.
+- **Lower memory usage** (only a single integer).
+- Works **only for lowercase letters (a-z)**.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    char A[] = "finding";
+    int checker = 0, x = 0;
+
+    for(int i = 0; A[i] != '\0'; i++) {
+        x = 1 << (A[i] - 'a');  // Create a bitmask
+
+        if((checker & x) > 0) // Check if character already exists
+            cout << "Duplicate element: " << A[i] << endl;
+        else
+            checker = checker | x;  // Mark character as seen
+    }
+}
+```
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### How to apply bitwise operations?
+
+#### **Why Use Bitwise Operations?**
+
+Bitwise operations allow efficient manipulation of binary data. They are widely used in:
+- **Strings:** Checking for duplicate characters, toggling cases, etc.
+- **Integers:** Performing arithmetic and logical operations efficiently.
+
+
+#### **Types of Bitwise Operations**
+##### **1️. Left Shift (`<<`)**
+- Shifts bits **to the left** by a specified number of positions.
+- Fills the empty right positions with `0`s.
+- Effectively **multiplies** the number by `2^n`.
+
+```cpp
+int x = 5;      // 0000 0101
+int y = x << 1; // 0000 1010  (5 * 2 = 10)
+```
+
+##### **2. Bitwise AND (`&`) - Masking**
+- Used to check whether a specific bit is set (ON) or not.
+- If a bit is `1` in both operands, the result is `1`; otherwise, `0`.
+
+```cpp
+int x = 5;      // 0000 0101
+int y = 1;      // 0000 0001
+int result = x & y; // 0000 0001 (1)
+```
+
+- **Use Case:** Checking if a character has already appeared in a string.
+
+##### **3️. Bitwise OR (`|`) - Merging**
+- Used to set (turn ON) a bit at a specific position.
+- If a bit is `1` in either operand, the result is `1`.
+
+```cpp
+int x = 5;      // 0000 0101
+int y = 2;      // 0000 0010
+int result = x | y; // 0000 0111 (7)
+```
+
+- **Use Case:** Marking a character as "seen" in a string.
+
+##### **4. Finding Duplicate Characters in a String**
+This method uses bitwise operations to detect duplicate characters efficiently.
+
+- Use a long integer (`H`) as a bit container.
+- Left shift (`<<`) to mark characters as seen.
+- Use AND (`&`) to check if a character was already marked.
+- Use OR (`|`) to mark new characters as seen.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    char A[] = "Finding";
+    long int H = 0, x = 0;
+
+    for(int i = 0; A[i] != '\0'; i++) {
+        x = 1;
+        x = x << (A[i] - 'a');  // Left shift based on character position
+
+        if((x & H) > 0)  // Check if character is already seen
+            cout << A[i] << " is a duplicate element!" << endl;
+        else
+            H = x | H;  // Mark character as seen
+    }
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### How to check if strings are anagram?
+
+An anagram is a word or phrase formed by rearranging the letters of a different word or phrase. In this approach, we check whether all the elements from string 1 are present in string 2.
+
+- First, check if the sizes of both strings are equal. If not, they are not anagrams.
+- Use an array of size 26 (for lowercase letters) to count occurrences of each character in the first string.
+- Traverse the second string and decrement the character count in the array.
+- If any value in the array becomes negative, the strings are not anagrams.
+- If all values are zero at the end, the strings are anagrams.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    char A[] = "finding";
+    char B[] = "dingfin";
+
+    int i, C[26] = {0};
+    bool isAnagram = true;
+
+    // Count character occurrences in A
+    for(i = 0; A[i] != '\0'; i++)
+        C[A[i] - 'a'] += 1;
+
+    // Compare with B
+    for(i = 0; B[i] != '\0'; i++) {
+        C[B[i] - 'a'] -= 1;
+        if(C[B[i] - 'a'] < 0) {
+            isAnagram = false;
+            cout << "Not Anagram" << endl;
+            break;
+        }
+    }
+
+    if(isAnagram && B[i] == '\0')
+        cout << "Anagram" << endl;
+}
+```
+
+#### Complexity Analysis
+| Method | Time Complexity | Space Complexity |
+|--------|----------------|------------------|
+| Nested Loops | O(n²) | O(1) |
+| Hash Table | O(n) | O(1) |
+
+**Recommended Approach:** Using hash tables provides better performance compared to the nested loop method.
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### How to Find Permutation of Strings?
+
+- **Arrangement of a string.**
+
+- For `ABC`:
+  - Possible permutations: `ABC, ACB, BAC, BCA, CAB, CBA`
+  - Since there are `3` characters, the number of arrangements is `3!`.
+  - For `n` characters, the arrangement is `n!`.
+- **State Space Tree**: Imagine a tree where each branch represents a possible state of a problem, and the leaves show the results.
+- **Backtracking**: Going back and trying another path in the tree to explore different possibilities.
+
+
+- **Brute Force**: Trying every possible combination to find a solution.
+- **Recursion**: Using a procedure within itself to explore different paths, often used for backtracking.
+- **Dynamic Programming**: It's like a smarter brute force. It also tries different combinations but aims to find the best solution efficiently.
+
+- Use recursion to achieve backtracking.
+- With backtracking, we perform brute force.
+- Traverse in each call and pick characters that are not yet selected.
+- At the leaf node, prepare a string and display it.
+
+#### Method 1: Using Recursion with a Helper Array
+```cpp
+#include <iostream>
+using namespace std;
+
+void perm(char s[], int k){
+    static char res[10];
+    static int A[10] = {0};
+    if(s[k] == '\0'){
+        res[k] = '\0';
+        cout << res << " ";
+    }else{
+        for(int i = 0; s[i] != '\0'; i++){
+            if(A[i] == 0){
+                res[i] = s[k];
+                A[i] = 1;
+                perm(s, k + 1);
+                A[i] = 0;
+            }
+        }
+    }
+}
+
+int main()
+{
+   char p[] = "ABC";
+   perm(p, 0);
+}
+```
+
+#### Method 2: Using Swapping
+```cpp
+#include <iostream>
+using namespace std;
+
+void swap(char &x, char &y){
+    char z = x;
+    x = y;
+    y = z;
+}
+
+void perm(char p[], int l, int h){
+    if(l == h){
+        cout << p << " ";
+    }else{
+        for(int i = l; i <= h; i++) {
+            swap(p[l], p[i]);
+            perm(p, l + 1, h);
+            swap(p[l], p[i]);
+        }
+    }
+}
+
+int main()
+{
+   char p[] = "ABC";
+   perm(p, 0, 2);
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+---
+---
+
+## Recursion
