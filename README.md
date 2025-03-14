@@ -71,7 +71,7 @@
 | 4   | [Difference b/w character set and strings?](#difference-between-character-set-and-strings) |
 | 5   | [How to find Length of string?](#how-to-find-length-of-string) |
 | 6   | [How to change case of strings?](#how-to-change-case-of-strings) |
-| 7   | [How to count words, vowels and consonants in a string?] (#how-to-count-words-vowels-and-consonants-in-a-string) |
+| 7   | [How to count words, vowels and consonants in a string?](#how-to-count-words-vowels-and-consonants-in-a-string) |
 | 8   | [How to validate a string?](#how-to-validate-a-string) |
 | 9   | [How to reverse a string?](#how-to-reverse-a-string) |
 | 10  | [How to compare strings and check palindrome?](#how-to-compare-strings-and-check-palindrome) |
@@ -82,8 +82,29 @@
 
 ### [Recursion](#recursion)
 
+| No. | Questions |
+| --- | ----------------------------------------------------------------- |
+| 1.  | [What is Recursion?](#what-is-recursion) |
+| 2.  | [How Recursion Works?](#how-recursion-works) |
+| 3.  | [What are the Advantages & Disadvantages of Recursion?](#advantages--disadvantages-of-recursion) |
+| 4.  | [How to Trace Recursive Functions?](#tracing-recursive-functions) |
+| 5.  | [What are the Phases of Recursion?](#calling--returning-phases) |
+| 6.  | [What is the Difference Between Recursion and Loop?](#recursion-vs-loop) |
+| 7.  | [How Recursion Uses Stack?](#how-recursion-uses-stack) |
+| 8.  | [What are the Types of Recursion?](#types-of-recursion) |
+| 9.  | [What is the Time Complexity of Recursion (Tree vs Recurrence Relation)?](#time-complexity-of-recursion) |
+| 10. | [What are the Steps to Solve Recursive Problems?](#steps-to-solve-recursive-problems) |
+| 11. | [How to find the Sum of First N Natural Numbers?](#sum-of-first-n-natural-numbers) |
+| 12. | [How to find the Factorial of a Number?](#factorial-of-a-number) |
+| 13. | [How to find the Power of a Number (m^n)?](#power-of-a-number-mn) |
+| 14. | [How to find the Taylor Series?](#taylor-series) |
+| 15. | [How to find the Fibonacci Series (Excessive Recursion and Memoization)?](#fibonacci-series) |
+| 16. | [How to find ⁿCɾ Combination or Selection Formula?](#combination-formula) |
+| 17. | [How to Solve the Tower of Hanoi Problem?](#tower-of-hanoi) |
+| 18. | [How to find the Number of Ways in an n X m Matrix?](#number-of-ways-in-matrix) |
 
 ## Introduction to DSA
+<a id="introduction-to-dsa"></a>
 
 ### What is Data Structure? 📂
 
@@ -344,6 +365,7 @@ int factorial(int n) {
 ---
 
 ## Array Representations
+<a id="array-representations"></a>
 
 ### What is an Array?
 - Array is like a container that is use to store some kind of data or collection of elements.
@@ -589,6 +611,7 @@ int **A;
 ---
 
 ## Array as ADT (Abstract Data Type)
+<a id="array-as-adt-abstract-data-type"></a>
 
 ### What is Array ADT?
 
@@ -1991,6 +2014,7 @@ int main() {
 ---
 
 ## Strings
+<a id="strings"></a>
 
 ### Character Set
 
@@ -2344,10 +2368,10 @@ int main() {
 }
 ```
 
-#### **Checking if a String is a Palindrome**
+#### **2. Checking if a String is a Palindrome**
 
 A **palindrome** is a string that reads the same **forward and backward**.
-For example:
+
 - **"MADAM"**, **"RACECAR"** are palindromes.
 - **"HELLO"**, **"WORLD"** are not palindromes.
 
@@ -2723,3 +2747,1288 @@ int main()
 ---
 
 ## Recursion
+<a id="recursion"></a>
+
+### What is Recursion?
+
+Recursion is a programming concept where a function calls itself to solve a smaller version of the same problem.
+
+- Recursion breaks a problem into smaller sub-problems of the same type.
+- It follows the **LIFO (Last In, First Out)** principle.
+- Every recursive function must have a **base case** to prevent infinite recursion.
+- Recursion can be traced using a **tree diagram**.
+- It has two phases:
+  - **Calling phase** (function calls itself)
+  - **Returning phase** (function returns values)
+
+```cpp
+void fun(int num) {
+  if (num > 0) {
+      cout << num << " "; // Prints in descending order
+      fun(num - 1); // Recursive call
+      cout << num << " "; // Prints in ascending order after returning from recursion
+  }
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### How Recursion Works?
+
+Recursion follows these steps:
+1. Calls itself with a smaller input.
+2. Stops when it reaches the **base case**.
+3. Returns values in reverse order (returning phase).
+
+Example:
+```cpp
+void countDown(int n) {
+    if (n == 0) return; // Base case
+    cout << n << " ";
+    countDown(n - 1); // Recursive call
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### What are the Advantages & Disadvantages of Recursion?
+
+#### Advantages:
+- Easier to read and write for problems like tree traversal, DFS, etc.
+- Reduces complex problems into simpler sub-problems.
+
+#### Disadvantages:
+- Can be **slow** due to repeated function calls.
+- Uses **extra memory** (stack space).
+- Risk of **stack overflow** if recursion depth is too high.
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### How to Trace Recursive Functions?
+
+Recursion can be traced using a **tree diagram**.
+
+1. Identify the **base case** and **recursive case**.
+2. Expand each recursive call in a **tree-like structure**.
+3. Evaluate the base case first to stop recursion.
+4. Work your way **back up** to compute results.
+
+#### **Head Recursion** (Recursive Call First)
+```cpp
+void fun1(int n) {
+    if (n > 0) {
+        cout << n << " ";  // Print before recursive call
+        fun1(n - 1);
+    }
+}
+int main() {
+    fun1(3);
+}
+```
+
+**Tracing:**
+```
+        fun1(3)
+        /  \
+ Print 3    fun1(2)
+           /   \
+    Print 2     fun1(1)
+                /   \
+         Print 1     fun1(0) → Base Case (stops recursion)
+```
+
+#### **Tail Recursion** (Recursive Call First, Printing After Returning)
+```cpp
+void fun2(int n) {
+    if (n > 0) {
+        fun2(n - 1);  // Recursive call first
+        cout << n << " ";  // Print after recursion
+    }
+}
+int main() {
+    fun2(3);
+}
+```
+**Tracing:**
+```
+              fun2(3)
+              /
+        fun2(2)
+        /
+   fun2(1)
+   /
+fun2(0) → Base Case (stops recursion)
+   ├── Prints 1
+   ├── Prints 2
+   ├── Prints 3
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### What are the Phases of Recursion?
+
+Recursion has two phases:
+1. **Calling Phase**: Function calls itself.
+2. **Returning Phase**: Function returns values after reaching the base case.
+
+```cpp
+int fun(int num) {
+    if (num > 0) {
+        cout << num << " "; // Calling Phase
+        fun(num - 1);
+        cout << num << " "; // Returning Phase
+    }
+}
+```
+
+**Two scenarios of recursion:**
+
+- Switch on the light (bulb) and go to the next room.
+
+```cpp
+void fun(int num) {
+    if (num > 0) {
+        cout << num << " "; // Prints in descending order
+        fun(num - 1); // (*2) Returning time
+        cout << num << " "; // Prints in ascending order after returning from recursion
+    }
+}
+```
+
+- Go to the next room and then switch on the light (bulb).
+
+```cpp
+int fun2(int num){
+    if(num > 0){
+        fun1(num - 1);
+        cout << num << " ";
+    }
+}
+
+int main(){
+    fun1(3);
+    cout << endl;
+    fun2(3);
+}
+```
+
+#### Generalization
+
+- The things that occur before are executed during calling time. We can call it ascending.
+- The things that occur after are executed during returning time. The things that are present with the function also do work during returning time. We can call it descending.
+
+```cpp
+int fun(int num){
+    if(num > 0){
+    cout << num;
+    cout << fun(num - 1) * 2;
+    cout << num;
+    }
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### What is the Difference Between Recursion and Loop?
+
+Both recursion and loops are used for repeating operations, but they have key differences:
+- **Loops** execute in a straightforward manner, usually iterating **in one direction (ascending order)**.
+- **Recursion** executes **in both ascending and descending order**, making function calls until a base case is met.
+
+| Feature         | Recursion                           | Loop                          |
+|---------------|----------------------------------|------------------------------|
+| **Memory Usage** | High (due to stack frames)       | Low (single iteration variable) |
+| **Execution Speed** | Slower (due to function calls)  | Faster |
+| **Readability** | Easier for complex problems    | Easier for simple problems |
+
+**Recursion:**
+```cpp
+void recursiveFunction(int n) {
+    if (n > 0) {
+        cout << n << " ";
+        recursiveFunction(n - 1);
+    }
+}
+
+int main() {
+    recursiveFunction(5); // 5 4 3 2 1
+}
+```
+```
+recursiveFunction(5)
+├── recursiveFunction(4)
+│   ├── recursiveFunction(3)
+│   │   ├── recursiveFunction(2)
+│   │   │   ├── recursiveFunction(1)
+│   │   │   │   ├── recursiveFunction(0) → Base Case (stops recursion)
+```
+
+**Loop:**
+```cpp
+int main() {
+    for (int i = 5; i > 0; i--) {
+        cout << i << " "; // 5 4 3 2 1
+    }
+}
+```
+```
+i = 5 → Print 5 → i--
+i = 4 → Print 4 → i--
+i = 3 → Print 3 → i--
+i = 2 → Print 2 → i--
+i = 1 → Print 1 → i--
+i = 0 → Loop stops
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### How Recursion Uses Stack?
+
+Each recursive function call creates an **activation record** in the stack. When the **base case** is reached, the function calls **return in reverse order**.
+
+#### Consider the following recursive function:
+```cpp
+void fun(int n) {
+    if (n > 0) {
+        cout << "Call: " << n << endl;
+        fun(n - 1);
+        cout << "Return: " << n << endl;
+    }
+}
+int main() {
+    fun(3);
+}
+```
+**Function call flow:**
+```
+fun(3)   → Push onto stack
+  fun(2)   → Push onto stack
+    fun(1)   → Push onto stack
+      fun(0)   → Base Case (Stops recursion)
+    (return 1) → Pop from stack
+  (return 2) → Pop from stack
+(return 3) → Pop from stack
+```
+**Stack Memory:**
+```
+| fun(0) |  → Base Case (pops first)
+| fun(1) |
+| fun(2) |
+| fun(3) |  → First pushed, last popped (LIFO)
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### What are the Types of Recursion?
+
+- If a recursive function has operations before and after the recursive call, it is called **linear recursion**.
+
+#### **Tail Recursion**
+- A recursive function where the **recursive call is the last statement** in the function.
+- Everything is performed **at calling time**.
+- No operation is left for **returning time**.
+- If additional operations are needed after returning, it is **not tail recursion**.
+- **Easily convertible to a loop.**
+- **Time Complexity:** O(n)
+- **Space Complexity:**
+  - Recursion: O(n) (due to n activation records)
+  - Loop: O(1) (single activation record)
+
+- **Conclusion:** Loops are more efficient for tail recursion.
+
+**Loop:**
+```cpp
+void fun(int n){
+    while(n > 0){
+        cout << n;
+        n--;
+    }
+}
+```
+**Recursion:**
+```cpp
+void fun(int n){
+    if(n > 0){
+        cout << n << " ";
+        fun(n - 1);
+    }
+}
+int main(){
+    fun(3);
+}
+```
+**Recursive Call Tree:**
+```
+fun(3)
+|
+fun(2)
+|
+fun(1)
+|
+fun(0) → Base Case (stops recursion)
+```
+**Function call flow:**
+```
+fun(3)   → Push onto stack
+  fun(2)   → Push onto stack
+    fun(1)   → Push onto stack
+      fun(0)   → Base Case (Stops recursion)
+    (return) → Pop from stack
+  (return) → Pop from stack
+(return) → Pop from stack
+```
+**Stack Memory:**
+```
+| fun(0) |  → Base Case (pops first)
+| fun(1) |
+| fun(2) |
+| fun(3) |  → First pushed, last popped (LIFO)
+```
+
+#### **Head Recursion**
+
+- In head recursion, the recursive call is the first statement in the function. No operations are performed before the recursive call.
+
+  - All operations occur **only at returning time**.
+  - **Difficult to convert into a loop** without extra logic.
+
+**Loop:**
+```cpp
+void fun(int n){
+  int i = 1;
+  while(i <= n){
+    cout << n;
+    n--;
+  }
+}
+```
+**Recursion:**
+```cpp
+void fun(int n){
+    if(n > 0){
+        fun(n - 1);
+        cout << n << " ";
+    }
+}
+int main(){
+    fun(3);
+}
+```
+**Recursive Call Tree:**
+```
+         fun(3)
+        /
+     fun(2)
+    /
+ fun(1)
+ /
+fun(0) → Base Case (stops recursion)
+```
+**Function call flow:**
+```
+fun(3)   → Push onto stack
+  fun(2)   → Push onto stack
+    fun(1)   → Push onto stack
+      fun(0)   → Base Case (Stops recursion)
+    (return 1) → Pop from stack → Print 1
+  (return 2) → Pop from stack → Print 2
+(return 3) → Pop from stack → Print 3
+```
+**Stack Memory:**
+```
+| fun(0) |  → Base Case (pops first)
+| fun(1) |
+| fun(2) |
+| fun(3) |  → First pushed, last popped (LIFO)
+```
+
+#### **Tree Recursion**
+
+- If a function calls itself more than once, it is called **tree recursion**.
+- The time complexity of tree recursion is calculated as:
+
+  \[
+  (2⁰ + 2¹ + 2² + ... + 2ⁿ) = (2ⁿ⁺¹) - 1 \approx O(2ⁿ)
+  \]
+
+- The space complexity depends on the height of the recursive tree, which is **O(n)**.
+
+```cpp
+void fun(int n)
+{
+   if (n > 0)
+   {
+     printf("%d ", n);
+     fun(n - 1);
+     fun(n - 1);
+   }
+}
+```
+**Recursive Call Tree:**
+```
+                fun(3)
+               /      \
+          fun(2)      fun(2)
+         /     \      /     \
+    fun(1)  fun(1) fun(1)  fun(1)
+    /    \   /   \  /    \  /   \
+fun(0) fun(0) fun(0) fun(0) fun(0) fun(0) fun(0) fun(0) → Base Case (Stops recursion)
+```
+**Function call flow:**
+```
+fun(3)   → Push onto stack
+  fun(2)   → Push onto stack
+    fun(1)   → Push onto stack
+      fun(0)   → Base Case (Stops recursion)
+      fun(0)   → Base Case (Stops recursion)
+    (return) → Pop from stack
+    fun(1)   → Push onto stack
+      fun(0)   → Base Case (Stops recursion)
+      fun(0)   → Base Case (Stops recursion)
+    (return) → Pop from stack
+  (return) → Pop from stack
+  fun(2)   → Push onto stack
+    fun(1)   → Push onto stack
+      fun(0)   → Base Case (Stops recursion)
+      fun(0)   → Base Case (Stops recursion)
+    (return) → Pop from stack
+    fun(1)   → Push onto stack
+      fun(0)   → Base Case (Stops recursion)
+      fun(0)   → Base Case (Stops recursion)
+    (return) → Pop from stack
+  (return) → Pop from stack
+(return) → Pop from stack
+```
+**Stack Memory:**
+```
+| fun(0) |  → Base Case (pops first)
+| fun(1) |
+| fun(2) |
+| fun(3) |  → First pushed, last popped (LIFO)
+```
+
+- **For tree recursion, multiple function calls are pushed onto the stack before returning.**
+
+#### **Indirect recursion**
+
+- **Indirect recursion** occurs when **more than one function** calls one another in a **circular manner**.
+- Instead of a single function calling itself directly, function **A calls B, B calls C, and C calls A** (or any similar cycle).
+
+```cpp
+void fun2(int n);
+void fun1(int n){
+    if(n > 0){
+        cout << n << endl;
+        fun2(n - 1);  // Calling fun2
+    }
+}
+void fun2(int n){
+    if(n > 1){
+        cout << n << endl;
+        fun1(n / 2);  // Calling fun1
+    }
+}
+int main(){
+    fun1(20);
+}
+```
+**Recursive Call Tree:**
+```
+fun1(20)
+    |
+fun2(19)
+    |
+fun1(9)
+    |
+fun2(8)
+    |
+fun1(4)
+    |
+fun2(3)
+    |
+fun1(1)
+    |
+fun2(0) → Base Case (Stops recursion)
+```
+**Function call flow:**
+```
+fun1(20)  → Push onto stack
+  fun2(19)  → Push onto stack
+    fun1(9)  → Push onto stack
+      fun2(8)  → Push onto stack
+        fun1(4)  → Push onto stack
+          fun2(3)  → Push onto stack
+            fun1(1)  → Push onto stack
+              fun2(0)  → Base Case (Stops recursion)
+            (return) → Pop from stack
+          (return) → Pop from stack
+        (return) → Pop from stack
+      (return) → Pop from stack
+    (return) → Pop from stack
+  (return) → Pop from stack
+(return) → Pop from stack
+```
+**Stack Memory:**
+```
+| fun2(0) |  → Base Case (pops first)
+| fun1(1) |
+| fun2(3) |
+| fun1(4) |
+| fun2(8) |
+| fun1(9) |
+| fun2(19) |
+| fun1(20) |  → First pushed, last popped (LIFO)
+```
+- **For indirect recursion, functions call each other alternately before returning.**
+
+#### **Nested Recursion**
+
+- **Nested recursion** occurs when a recursive function **passes a parameter as a recursive call**.
+- First, it **processes the parameter recursively**, and then the result is used in the main recursion.
+
+```cpp
+int fun(int n){
+  if(n > 100){
+    return n - 10;  // Base condition
+  } else {
+    return fun(fun(n + 11));  // Nested recursion
+  }
+}
+int main() {
+    cout << fun(95) << endl;  // Example call
+}
+```
+**Recursive Call Tree:**
+```
+                          fun(95)
+                              |
+               ---------------------------------
+               |                               |
+           fun(fun(106))                   fun(96)
+               |                               |
+       ------------------                ------------------
+       |                |                |                |
+   fun(106)         fun(fun(107))     fun(97)         fun(fun(108))
+       |                |                |                |
+      96       ---------------          97       ---------------
+              |             |                    |             |
+          fun(107)     fun(fun(108))        fun(98)     fun(fun(109))
+              |             |                    |             |
+             97      ---------------           98      ---------------
+                      |             |                    |             |
+                  fun(108)     fun(fun(109))        fun(99)     fun(fun(110))
+                      |             |                    |             |
+                     98      ---------------           99      ---------------
+                              |             |                    |             |
+                          fun(109)     fun(fun(110))        fun(100)     fun(fun(111))
+                              |             |                    |             |
+                             99      ---------------          100      ---------------
+                                      |             |                    |             |
+                                  fun(110)     fun(fun(111))        fun(101)     fun(101)
+                                      |             |                    |             |
+                                     100      ---------------          101          101
+                                              |             |
+                                          fun(111)     fun(101)
+                                              |             |
+                                             101           91
+```
+**Function call flow:**
+```
+fun(95) → Calls fun(fun(106))
+  fun(106) → Returns 96
+  fun(96) → Calls fun(fun(107))
+    fun(107) → Returns 97
+    fun(97) → Calls fun(fun(108))
+      fun(108) → Returns 98
+      fun(98) → Calls fun(fun(109))
+        fun(109) → Returns 99
+        fun(99) → Calls fun(fun(110))
+          fun(110) → Returns 100
+          fun(100) → Calls fun(fun(111))
+            fun(111) → Returns 101
+            fun(101) → Returns 91
+          Returns 91
+        Returns 91
+      Returns 91
+    Returns 91
+  Returns 91
+Returns 91
+```
+**Stack Memory:**
+```
+| fun(101) → 91 |  → Base Case Reached
+| fun(100) → 91 |
+| fun(99) → 91  |
+| fun(98) → 91  |
+| fun(97) → 91  |
+| fun(96) → 91  |
+| fun(95) → 91  |  → First pushed, last popped (LIFO)
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### What is the Time Complexity of Recursion (Tree vs Recurrence Relation)?
+
+We can analyze recursion time complexity using two methods:
+
+1. **Tree Diagram Approach**
+   - Convert the recursion into a **tree-like structure**.
+   - Count the number of function calls at each level.
+   - Determine the complexity.
+
+2. **Recurrence Relation Approach**
+   - Express the recursive function as a **mathematical recurrence relation**.
+   - Solve it using the **substitution method** or the **Master Theorem**.
+
+#### **Tree Diagram**
+- A tree diagram helps visualize recursion depth and function calls.
+```cpp
+int fib(int n) {
+    if (n <= 1) return n; // Base Case
+    return fib(n-1) + fib(n-2); // Recursive Case
+}
+```
+
+**Recursive Call Tree:**
+```
+              fib(4)
+             /      \
+        fib(3)      fib(2)
+       /      \     /      \
+  fib(2)   fib(1) fib(1)  fib(0)
+  /     \
+fib(1) fib(0)
+```
+
+- The recursion tree has **O(2ⁿ)** calls.
+- Each level doubles the number of calls, leading to **O(2ⁿ)** complexity..
+
+#### **Recurrence Relation:**
+
+The recurrence relation expresses how the function breaks down.
+
+##### Fibonacci Recursion:
+- The recurrence relation for Fibonacci is:
+    `T(n) = T(n-1) + T(n-2) + O(1)`
+- Expanding it:
+    `T(n) ≈ 2T(n-1)`
+- This leads to **O(2ⁿ) complexity**.
+
+##### Factorial Recursion
+
+```cpp
+int fact(int n) {
+    if (n == 0) return 1; // Base Case
+    return n * fact(n - 1); // Recursive Case
+}
+```
+- The recurrence relation for Factorial is:
+    `T(n) = T(n-1) + O(1)`
+- Expanding it:
+    `T(n) = T(n-2) + 2O(1)`
+- This leads to **O(n) complexity**.
+
+| Method                 | How it Works                                      | Best for                     |
+|------------------------|--------------------------------------------------|------------------------------|
+| **Tree Diagram**       | Expands recursion into a tree and counts calls   | Intuitive visualization      |
+| **Recurrence Relation** | Converts recursion into a mathematical equation | Formal complexity analysis   |
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### What are the Steps to Solve Recursive Problems?
+
+To effectively solve problems using recursion, follow these **five key steps**:
+
+#### 1️. Find the Simplest Possible Input
+- Identify the **base case**, which is the smallest input that can be solved directly.
+- The **base case** is the only case where we provide an **explicit answer**; all other solutions will **build upon it**.
+
+#### 2️. Play Around with Examples
+- Try small inputs to see how the problem behaves.
+- Check edge cases and special cases to ensure correctness.
+
+#### 3️. Relate Hard Cases to Simplest Cases
+- Break down the problem into **smaller subproblems**.
+- Example:
+  - If we know how to find the sum from `0` to `3`, can we use that to find the sum from `0` to `4`?
+
+#### 4️. Generalize the Pattern
+- Identify a **recurrence relation**.
+- Example:
+  - If we need to compute a value for `n = k`, we can find it by first computing `n = k - 1` and then combining results.
+
+#### 5️. Write Code by Combining Recursive Pattern with Base Case
+- Implement the recursive pattern identified.
+- Ensure the base case **stops** recursion.
+
+```cpp
+int sum(int n) {
+    if (n == 0) return 0; // Base Case
+    return n + sum(n - 1); // Recursive Case
+}
+
+int main() {
+    cout << "Sum of first 5 numbers: " << sum(5) << endl;
+}
+```
+**Recursive Calls:**
+```
+sum(5) = 5 + sum(4)
+sum(4) = 4 + sum(3)
+sum(3) = 3 + sum(2)
+sum(2) = 2 + sum(1)
+sum(1) = 1 + sum(0)
+sum(0) = 0  → Base Case
+```
+**Returns in Reverse Order:**
+```
+sum(1) = 1 + 0 = 1
+sum(2) = 2 + 1 = 3
+sum(3) = 3 + 3 = 6
+sum(4) = 4 + 6 = 10
+sum(5) = 5 + 10 = 15
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### How to find the Sum of First N Natural Numbers?
+
+#### 1. **Formula**
+
+The formula for finding the sum of first N natural numbers is:
+\[
+S = \frac{n(n + 1)}{2}
+\]
+```cpp
+int sumFormula(int n){
+    return (n * (n + 1)) / 2;
+}
+```
+- Time and space complexity is: O(n)
+
+#### 2. **Loop**
+
+- Iterate from `1` to `n` and sum up values.
+
+```cpp
+int sumLoop(int n){
+    int sum = 0;
+    for(int i = 1; i <= n; i++){
+        sum += i;
+    }
+    return sum;
+}
+```
+
+- Time complexity is `O(n)` and space complexity is `O(1)`.
+
+#### 3. **Recursion**
+
+- The sum of the first `n` numbers is:
+    `S(n)=n+S(n−1)`
+```cpp
+int sumRecursive(int n){
+    if(n == 0){
+        return 0;  // Base case
+    } else {
+        return n + sumRecursive(n - 1);
+    }
+}
+```
+**Recursive Call Tree:**
+```
+            sumRecursive(4)
+                 │
+          ┌─────┴─────┐
+          │           │
+   sumRecursive(3)    +4
+        │
+   ┌────┴────┐
+   │         │
+sumRecursive(2)   +3
+     │
+ ┌───┴───┐
+ │       │
+sumRecursive(1)   +2
+    │
+┌───┴───┐
+│       │
+sumRecursive(0)  +1 (Base Case)
+```
+**Function call flow:**
+```
+sumRecursive(4) → Calls sumRecursive(3)
+  sumRecursive(3) → Calls sumRecursive(2)
+    sumRecursive(2) → Calls sumRecursive(1)
+      sumRecursive(1) → Calls sumRecursive(0) → Base Case returns 0
+      (returns 1 + 0 = 1)
+    (returns 2 + 1 = 3)
+  (returns 3 + 3 = 6)
+(returns 4 + 6 = 10)
+```
+**Stack Memory:**
+Before Returning (LIFO - Last In, First Out):
+```
+| sumRecursive(0) |  → Base Case (pops first)
+| sumRecursive(1) |
+| sumRecursive(2) |
+| sumRecursive(3) |
+| sumRecursive(4) |  → First pushed, last popped (LIFO)
+```
+After Returning:
+```
+| sumRecursive(1) | → sumRecursive(0) popped
+| sumRecursive(2) | → sumRecursive(1) popped
+| sumRecursive(3) | → sumRecursive(2) popped
+| sumRecursive(4) | → sumRecursive(3) popped
+```
+
+- Time complexity is `O(n)` and space complexity is `O(n) -> because of recursive calls`.
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### How to find the Factorial of a Number?
+
+**Loop**
+```cpp
+int fac(int n){
+  int fc = 1;
+  if(n > 0)
+    for(int i = 0; i <= n; i++)
+      fc *= i;
+  else
+    return 1;
+  return fc;
+}
+```
+**Recursion**
+```cpp
+int fac(int n){
+  if(n > 0)
+    return (n - 1) * n;
+  else
+    return 1;
+}
+```
+**Recursive Call Tree:**
+```
+          fac(5)
+         /
+    fac(4)
+       /
+   fac(3)
+      /
+  fac(2)
+     /
+ fac(1)
+    /
+fac(0) → Base Case (stops recursion)
+```
+**Function call flow:**
+```
+fac(5)   → Push onto stack
+  fac(4)   → Push onto stack
+    fac(3)   → Push onto stack
+      fac(2)   → Push onto stack
+        fac(1)   → Push onto stack
+          fac(0)   → Base Case (stops recursion)
+        (return 1) → Pop from stack
+      (return 2 * 1 = 2) → Pop from stack
+    (return 3 * 2 = 6) → Pop from stack
+  (return 4 * 6 = 24) → Pop from stack
+(return 5 * 24 = 120) → Pop from stack
+```
+**Stack Memory:**
+```
+| fac(0) |  → Base Case (pops first)
+| fac(1) |
+| fac(2) |
+| fac(3) |
+| fac(4) |
+| fac(5) |  → First pushed, last popped (LIFO)
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### How to find the Power of a Number (m^n)?
+
+**Loop**
+```cpp
+int fun(int n, int m) {
+    if (m > 0) {
+        int result = 1;
+        for (int i = 0; i < m; i++) {
+            result *= n;
+        }
+        return result;
+    } else {
+        return 1;
+    }
+}
+```
+
+- `When we have to return multiple values from recursive function then we use static keywords.`
+
+**Recursion**
+  - It will create total n + 1 activation records.
+  - Other way:
+    - If power is even:
+      - (m * m)ⁿ∕ ²
+    - If power is odd:
+      - m * (m * m)ⁿ⁻¹∕ ²
+
+##### Simple Recursive Approach
+```cpp
+int fun(int n, int m){
+  if(m > 0){
+      return fun(n, m - 1) * n;
+  }else{
+      return 1;
+  }
+};
+```
+##### Optimized Recursive Approach (Exponentiation by Squaring)
+```cpp
+int fun(int n, int m){
+  if(m == 0){
+    return 1;
+  }
+  if(m % 2 == 0){
+    return fun(n * n, m / 2);
+  }else{
+    return n * fun(n * n, (m - 1) / 2);
+  }
+}
+```
+**Recursive Call Tree (For fun 2^3):**
+```
+          fun(2, 3)
+         /        \
+  2 * fun(4, 1)   → m is odd, so multiply n
+      /
+  fun(16, 0)  → Base Case (stops recursion)
+  ```
+**Function call flow:**
+```
+fun(2, 3)   → Push onto stack
+  fun(4, 1)   → Push onto stack
+    fun(16, 0)   → Base Case (Stops recursion)
+  (return 16) → Pop from stack
+(return 32) → Pop from stack
+```
+**Stack Memory:**
+```
+| fun(16, 0) |  → Base Case (pops first)
+| fun(4, 1)  |
+| fun(2, 3)  |  → First pushed, last popped (LIFO)
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### How to find the Taylor Series?
+
+#### Using recursion:
+  - Time complexity or number of multiplication is O(n²). We can calculate is by calculating its number of multiplications.
+
+```cpp
+double fun(double num, double power) {
+    static double p = 1;
+    static double f = 1;
+    double r;
+
+    if(power == 0){
+        return 1;
+    }
+        p *= num;
+        f *= power;
+        r = fun(num, power - 1);
+
+    return r + p / f;
+}
+int main() {
+    cout <<fun(2, 3);
+}
+```
+
+#### Using loop:
+```cpp
+double fun(double x, double power) {
+    double s = 1;
+    double power = 1;
+    double fac = 1;
+
+    for(int i = 1; i <= power; i++){
+        power *= x;
+        fac *= i;
+        s += num / den;
+    }
+    return s;
+}
+int main() {
+    cout <<fun(2, 3);
+}
+```
+
+#### Using Horners:
+
+- In this method we take commons at much at possible to reduce number of multiplications.
+
+- **Recursion:**
+```cpp
+double fun(double num, double power) {
+static double s = 1;
+
+if(power == 0){
+    return s;
+}
+
+s = 1 + num / power * s;
+fun(num, power - 1);
+}
+int main() {
+cout <<fun(2, 3);
+}
+```
+
+- **Loop**
+```cpp
+double fun(double num, double power) {
+    double s = 1;
+    for(; power > 0; power--){
+        s = 1 + num / power * s;
+    }
+    return s;
+}
+int main() {
+    cout <<fun(2, 3);
+}
+```
+
+### How to find the Fibonacci Series (Excessive Recursion and Memoization)?
+
+Fibonacci series is a sequence where each number is the sum of the two preceding ones: `0, 1, 1, 2, 3, 5, 8, 13, ...`
+
+There are multiple ways to compute Fibonacci numbers, including:
+1. **Excessive Recursion** (Inefficient)
+2. **Recursion with Memoization** (Efficient)
+3. **Using a Loop** (Iterative Approach)
+
+#### **1. Excessive Recursion**
+- When a function repeatedly calls itself with the **same parameters**, it leads to **excessive recursion**.
+- This results in **redundant calculations** and high **time complexity O(2ⁿ)**.
+
+```cpp
+int fib(int n) {
+    if (n <= 1) return n;
+    return fib(n - 1) + fib(n - 2);
+}
+
+int main() {
+    cout << fib(5) << endl;  // Output: 5
+}
+```
+
+- `O(2ⁿ)` (Exponential, inefficient for large n)
+
+#### **2. Recursion with Memoization (Optimized)**
+- Memoization stores previously computed values to avoid redundant calculations.
+- This reduces the time complexity from `O(2ⁿ)` to `O(n)`.
+
+```cpp
+// Recursive Memoization Approach
+int memo[100];  // Array to store computed values
+
+int fib(int n) {
+    if (n <= 1) return n;
+    if (memo[n] != -1) return memo[n]; // If already computed, return it
+    return memo[n] = fib(n - 1) + fib(n - 2);
+}
+
+int main() {
+    fill_n(memo, 100, -1); // Initialize memoization array with -1
+    cout << fib(5) << endl;  // Output: 5
+}
+```
+
+- `O(n)` (Efficient, avoids redundant calculations)
+
+#### **3. Iterative Approach (Using a Loop)**
+- The most efficient way to compute Fibonacci is using an iterative loop.
+- This avoids recursion overhead.
+
+```cpp
+int fib(int n) {
+    if (n <= 1) return n;
+
+    int first = 0, second = 1, next;
+    for (int i = 2; i <= n; i++) {
+        next = first + second;
+        first = second;
+        second = next;
+    }
+    return next;
+}
+int main() {
+    cout << fib(5) << endl;  // Output: 5
+}
+```
+
+- `O(n)` (Most efficient, no recursion overhead)
+
+### How to find ⁿCɾ Combination or Selection Formula?
+
+- This is a method to determine how many ways we can **select a subset** from a given set of objects.
+- The **combination formula** is used to compute the number of ways we can select a subset:
+  \[
+  C(n, r) = \frac{n!}{r! \cdot (n - r)!}
+  \]
+- Using **recursion**, this problem can be solved using **Pascal's Triangle**.
+
+#### **Combination Formula**
+- **Mathematical Representation:**
+  \[
+  C(n, r) = C(n-1, r-1) + C(n-1, r)
+  \]
+- **Base Case:**
+  - If `r == 0` or `n == r`, then `C(n, r) = 1`.
+
+#### **Recursive**
+- The recursive method follows **Pascal’s Triangle**.
+- It makes **recursive calls from bottom to top**, reducing the problem size.
+
+```cpp
+int C(int n, int r) {
+    if (r == 0 || n == r) {
+        return 1;
+    }
+    return C(n - 1, r - 1) + C(n - 1, r);
+}
+int main() {
+    cout << C(5, 3) << endl;  // Output: 10
+}
+```
+
+#### **Loop**
+```cpp
+int fac(int n){
+    if(n == 0){
+        return 1;
+    }
+    return fac(n - 1) * n;
+}
+int C(int n, int r) {
+    int n_fac, r_fac, b_fac;
+
+    n_fac = fac(n);
+    r_fac = fac(r);
+    b_fac = fac(n - r);
+
+    return n_fac / (r_fac * b_fac);
+};
+int main() {
+    cout << C(5, 3);
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### How to Solve the Tower of Hanoi Problem?
+
+- The Tower of Hanoi is a classic **recursion-based** problem involving three rods (**towers**) and `n` disks.
+- **Rules of the game:**
+  1. Only **one disk** can be moved at a time.
+  2. A disk can only be placed on **top of another larger disk**.
+  3. The goal is to move all disks from **Tower 1** to **Tower 3**, using **Tower 2** as a helper.
+
+- **Understanding the Problem**
+    - **Given:**
+    - `n` disks initially stacked in **ascending size order** on **Tower 1**.
+    - **Tower 2** (Helper).
+    - **Tower 3** (Destination).
+- **Objective:** Move all `n` disks from **Tower 1** → **Tower 3** following the rules.
+
+- The problem follows a **divide-and-conquer approach**:
+  1. Move `n-1` disks from **Tower 1** → **Tower 2** (using Tower 3).
+  2. Move the largest disk from **Tower 1** → **Tower 3**.
+  3. Move `n-1` disks from **Tower 2** → **Tower 3** (using Tower 1).
+
+```cpp
+int TOH(int n, int A, int B, int C) {
+
+    if(n > 0){
+        TOH(n - 1, A, C, B);
+        cout << "( " << A << ", " << C << " )" << endl;
+        TOH(n - 1, B, A, C);
+    }
+};
+int main() {
+    cout << TOH(4, 1, 2, 3);
+}
+```
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+
+### How to find the Number of Ways in an n X m Matrix?
+
+#### **Problem Statement:**
+- Given an `n × m` matrix, find the number of ways to move from the **top-left corner** to the **bottom-right corner**.
+- You can only move **right** or **down**.
+
+#### **Approach:**
+- If `n == 1` or `m == 1`, there is only **one way** to reach the destination (either all right moves or all down moves).
+- This forms our **base case**.
+- The total number of ways to reach `(n, m)` is the sum of:
+  - Ways to reach `(n-1, m)` (moving **down**).
+  - Ways to reach `(n, m-1)` (moving **right**).
+
+```cpp
+int countWays(int n, int m) {
+    if (n == 1 || m == 1) {
+        return 1; // Base case: Only one way to move
+    }
+    return countWays(n - 1, m) + countWays(n, m - 1);
+}
+int main() {
+    cout << countWays(3, 3) << endl;  // Output: 6
+}
+```
+
+- `O(2ⁿ⁺ᵐ)` (Exponential due to overlapping subproblems).
+
+**[⬆ Back to Top](#table-of-contents)**
+
+---
+---
+---
+
+## Linked List
