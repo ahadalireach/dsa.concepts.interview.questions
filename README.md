@@ -186,6 +186,8 @@
 
 ---
 
+| No. | Questions |
+| --- | ----------------------------------------------------------------- |
 | 1.  | [Give a Brief Comparison of Linked List Types](#comparison-of-linked-list-types) |
 | 2.  | [Comparison of Linked List with Array](#comparison-of-linked-list-with-array) |
 | 3.  | [How to find the intersection point of two Linked Lists?](#finding-the-intersection-point-of-two-linked-lists) |
@@ -224,17 +226,23 @@
 
 ## DEQueue (Double Ended Queue)
 
+| No. | Questions |
+| --- | ----------------------------------------------------------------- |
 | 1. | [What is DEQueue?](#what-is-dequeue) |
 | 2. | [What are the Restrictions in DEQueue?](#restrictions-in-dequeue) |
 
 ## Priority Queues
 
+| No. | Questions |
+| --- | ----------------------------------------------------------------- |
 | 1. | [What is Priority Queue?](#what-is-priority-queue) |
 | 2. | [What does it mean by Limited Set of Priorities?](#limited-set-of-priorities) |
 | 3. | [What does it mean by Element Priority? Explain methods.](#element-priority) |
 
 ---
 
+| No. | Questions |
+| --- | ----------------------------------------------------------------- |
 | 1.  | [How to Implement Queue using 2 Stacks](#how-to-implement-queue-using-stacks) |
 
 ---
